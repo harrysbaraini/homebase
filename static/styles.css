@@ -1,0 +1,534 @@
+/* homebase - TUI-style Dashboard Styles */
+
+/* ============================================================================
+   CSS Variables (populated by theme system)
+   ============================================================================ */
+
+:root {
+  /* Colors - defaults, overridden by dashboard theme */
+  --color-bg: #09090b;
+  --color-bg-panel: #18181b;
+  --color-border: #27272a;
+  --color-text: #fafafa;
+  --color-text-dimmed: #71717a;
+  --color-text-accent: #60a5fa;
+  --color-success: #22c55e;
+  --color-success-dimmed: #14532d;
+  --color-warning: #eab308;
+  --color-warning-dimmed: #713f12;
+  --color-danger: #ef4444;
+  --color-danger-dimmed: #7f1d1d;
+  --color-info: #3b82f6;
+  --color-info-dimmed: #1e3a8a;
+
+  /* Typography */
+  --font-family: "JetBrains Mono", "Fira Code", "SF Mono", Menlo, Monaco,
+    "Cascadia Code", "Roboto Mono", Consolas, monospace;
+  --font-size-base: 14px;
+  --font-size-sm: 12px;
+  --font-size-lg: 16px;
+  --font-size-xl: 24px;
+  --font-size-2xl: 32px;
+  --font-size-time: 48px;
+  --line-height: 1.6;
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+
+  /* Layout */
+  --container-max-width: 1100px;
+  --grid-gap: 1rem;
+  --panel-padding: 1rem;
+  --panel-radius: 0;
+
+  /* Animation */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+}
+
+/* ============================================================================
+   Base Reset & Typography
+   ============================================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-text-accent);
+}
+
+/* ============================================================================
+   Dashboard Container
+   ============================================================================ */
+
+.dashboard-container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ============================================================================
+   Grid Layout
+   ============================================================================ */
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns, 4), 1fr);
+  gap: var(--grid-gap);
+}
+
+/* ============================================================================
+   Widget Panel (TUI-style fieldset)
+   ============================================================================ */
+
+.widget-panel {
+  position: relative;
+  border: 1px solid var(--color-border);
+  padding: var(--panel-padding);
+  background-color: var(--color-bg-panel);
+}
+
+/* Panel label - positioned like a fieldset legend */
+.widget-panel::before {
+  content: attr(data-label);
+  position: absolute;
+  top: -0.6em;
+  left: 0.75rem;
+  padding: 0 0.5rem;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-dimmed);
+  background-color: var(--color-bg);
+  text-transform: lowercase;
+}
+
+/* Panel without label */
+.widget-panel:not([data-label])::before {
+  display: none;
+}
+
+.widget-panel__label {
+  position: absolute;
+  top: -0.6em;
+  left: 0.75rem;
+  padding: 0 0.5rem;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-dimmed);
+  background-color: var(--color-bg);
+  text-transform: lowercase;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.widget-panel__url {
+  color: var(--color-text-dimmed);
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+
+.widget-panel__url:hover {
+  color: var(--color-text-accent);
+  text-decoration: underline;
+}
+
+.widget-panel__content {
+  min-height: 2rem;
+}
+
+/* ============================================================================
+   Clock Widget
+   ============================================================================ */
+
+.widget-clock {
+  text-align: left;
+}
+
+.widget-clock__time {
+  font-size: var(--font-size-time);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.widget-clock__time-period {
+  font-size: var(--font-size-xl);
+  color: var(--color-text-dimmed);
+  margin-left: var(--spacing-sm);
+}
+
+.widget-clock__date {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-dimmed);
+  margin-top: var(--spacing-sm);
+  text-transform: lowercase;
+}
+
+/* ============================================================================
+   Bookmarks Widget
+   ============================================================================ */
+
+.widget-bookmarks {
+  display: grid;
+  grid-template-columns: repeat(var(--bookmark-columns, 4), 1fr);
+  gap: var(--spacing-lg);
+}
+
+.widget-bookmarks__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.widget-bookmarks__group-name {
+  color: var(--color-text-dimmed);
+  font-size: 0.85em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--spacing-xs);
+}
+
+.widget-bookmarks__link {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xs) 0;
+}
+
+.widget-bookmarks__link::before {
+  content: ">";
+  color: var(--color-text-dimmed);
+}
+
+.widget-bookmarks__link:hover::before {
+  color: var(--color-text-accent);
+}
+
+/* ============================================================================
+   Markdown Widget
+   ============================================================================ */
+
+.widget-markdown {
+  overflow-y: auto;
+  max-height: var(--markdown-max-height, 300px);
+}
+
+.widget-markdown h1,
+.widget-markdown h2,
+.widget-markdown h3 {
+  color: var(--color-text);
+  margin-top: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+}
+
+.widget-markdown h1 {
+  font-size: var(--font-size-lg);
+}
+
+.widget-markdown h2 {
+  font-size: var(--font-size-base);
+}
+
+.widget-markdown h3 {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-dimmed);
+}
+
+.widget-markdown p {
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-text-dimmed);
+}
+
+.widget-markdown ul,
+.widget-markdown ol {
+  margin-left: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-text-dimmed);
+}
+
+.widget-markdown li {
+  margin-bottom: var(--spacing-xs);
+}
+
+.widget-markdown code {
+  background-color: var(--color-bg);
+  padding: 0.1em 0.3em;
+  font-size: 0.9em;
+}
+
+.widget-markdown pre {
+  background-color: var(--color-bg);
+  padding: var(--spacing-sm);
+  overflow-x: auto;
+  margin-bottom: var(--spacing-sm);
+}
+
+.widget-markdown pre code {
+  background: none;
+  padding: 0;
+}
+
+.widget-markdown a {
+  color: var(--color-text-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Task list styling (checkboxes) */
+.widget-markdown input[type="checkbox"] {
+  appearance: none;
+  width: 1.2em;
+  height: 1.2em;
+  border: 1px solid var(--color-border);
+  margin-right: var(--spacing-sm);
+  vertical-align: middle;
+  position: relative;
+}
+
+.widget-markdown input[type="checkbox"]:checked::before {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--color-success);
+  font-size: 0.8em;
+}
+
+/* ============================================================================
+   Stats Widget (re-start inspired)
+   ============================================================================ */
+
+.widget-stats {
+  font-size: var(--font-size-sm);
+}
+
+.widget-stats__row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+}
+
+.widget-stats__label {
+  color: var(--color-text-dimmed);
+}
+
+.widget-stats__value {
+  color: var(--color-text);
+}
+
+/* ============================================================================
+   Dashboard Index (listing page)
+   ============================================================================ */
+
+.dashboard-list {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+}
+
+.dashboard-list__title {
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-text-dimmed);
+}
+
+.dashboard-list__items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.dashboard-list__item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  border: 1px solid transparent;
+  transition: border-color var(--transition-fast);
+}
+
+.dashboard-list__item::before {
+  content: ">";
+  color: var(--color-text-dimmed);
+}
+
+.dashboard-list__item:hover {
+  border-color: var(--color-border);
+}
+
+.dashboard-list__item:hover::before {
+  color: var(--color-text-accent);
+}
+
+/* ============================================================================
+   Error States
+   ============================================================================ */
+
+.widget-error {
+  color: var(--color-danger);
+  font-size: var(--font-size-sm);
+  padding: var(--spacing-sm);
+  background-color: var(--color-danger-dimmed);
+  border: 1px solid var(--color-danger);
+}
+
+.widget-loading {
+  color: var(--color-text-dimmed);
+  font-size: var(--font-size-sm);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* ============================================================================
+   404 Page
+   ============================================================================ */
+
+.page-404 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+  padding: var(--spacing-xl);
+}
+
+.page-404__code {
+  font-size: calc(var(--font-size-time) * 2);
+  color: var(--color-text-dimmed);
+  line-height: 1;
+}
+
+.page-404__message {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-dimmed);
+  margin-top: var(--spacing-md);
+}
+
+.page-404__link {
+  margin-top: var(--spacing-lg);
+  color: var(--color-text-accent);
+}
+
+/* ============================================================================
+   Responsive Breakpoints
+   ============================================================================ */
+
+@media (max-width: 1024px) {
+  :root {
+    --font-size-time: 36px;
+  }
+
+  .dashboard-grid {
+    --grid-columns: 2 !important;
+  }
+
+  .widget-bookmarks {
+    --bookmark-columns: 2 !important;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --font-size-time: 28px;
+    --panel-padding: 0.75rem;
+  }
+
+  .dashboard-container {
+    padding: var(--spacing-md);
+  }
+
+  .dashboard-grid {
+    --grid-columns: 1 !important;
+  }
+
+  .widget-bookmarks {
+    --bookmark-columns: 2 !important;
+  }
+}
+
+/* ============================================================================
+   Scrollbar Styling
+   ============================================================================ */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-dimmed);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) var(--color-bg);
+}
+
+/* ============================================================================
+   Print Styles
+   ============================================================================ */
+
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+
+  .widget-panel {
+    border-color: #ccc;
+    background: white;
+  }
+}

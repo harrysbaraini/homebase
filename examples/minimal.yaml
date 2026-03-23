@@ -1,0 +1,66 @@
+# Minimal homebase Dashboard
+# A simple, clean dashboard with just the essentials
+
+name: "minimal"
+container_max_width: "800px"
+
+font_family: "SF Mono"
+
+grid:
+  columns: 2
+  gap: "1.5rem"
+
+dark_theme:
+  bg: "neutral-950"
+  bg_panel: "neutral-900"
+  border: "neutral-800"
+  text: "neutral-100"
+  text_dimmed: "neutral-500"
+  text_accent: "emerald-400"
+  success: "emerald-500"
+  success_dimmed: "emerald-950"
+  warning: "amber-500"
+  warning_dimmed: "amber-950"
+  danger: "rose-500"
+  danger_dimmed: "rose-950"
+  info: "sky-500"
+  info_dimmed: "sky-950"
+
+widgets:
+  # Clock - centered at top
+  - type: "clock"
+    label: "time"
+    row: 1
+    col: 1
+    col_span: 2
+    settings:
+      timezone: "UTC"
+      format_24h: true
+      show_seconds: false
+      show_date: true
+
+  # Quick links
+  - type: "bookmarks"
+    label: "quick"
+    row: 2
+    col: 1
+    col_span: 2
+    settings:
+      columns: 2
+      groups:
+        - name: "essentials"
+          links:
+            - label: "mail"
+              url: "https://mail.google.com"
+            - label: "calendar"
+              url: "https://calendar.google.com"
+            - label: "notes"
+              url: "https://notion.so"
+        - name: "dev"
+          links:
+            - label: "github"
+              url: "https://github.com"
+            - label: "claude"
+              url: "https://claude.ai"
+            - label: "docs"
+              url: "https://devdocs.io"

@@ -1,0 +1,142 @@
+# homebase Dashboard Configuration
+# Copy to: ~/.config/homebase/dashboards/default.yaml
+
+name: "default"
+
+# Container width: "full", "80%", or pixel value like "1200px"
+# Optimized for reading by default
+container_max_width: "1100px"
+
+# Local font (must be installed on system)
+font_family: "JetBrains Mono"
+
+# OR use a web font:
+# font_face:
+#   font_family: "M PLUS Code Latin Variable"
+#   font_style: normal
+#   font_display: swap
+#   font_weight: "100 700"
+#   src: "url(https://cdn.jsdelivr.net/fontsource/fonts/m-plus-code-latin:vf@latest/latin-wght-normal.woff2) format('woff2-variations')"
+
+# Grid configuration
+grid:
+  columns: 4
+  gap: "1rem"
+
+# Theme colors using Tailwind color names
+dark_theme:
+  bg: "zinc-950"
+  bg_panel: "zinc-900"
+  border: "zinc-800"
+  text: "zinc-100"
+  text_dimmed: "zinc-500"
+  text_accent: "blue-400"
+  success: "green-500"
+  success_dimmed: "green-900"
+  warning: "yellow-500"
+  warning_dimmed: "yellow-900"
+  danger: "red-500"
+  danger_dimmed: "red-900"
+  info: "blue-500"
+  info_dimmed: "blue-900"
+
+# Optional light theme (defaults to inverted dark if not specified)
+# light_theme:
+#   bg: "zinc-50"
+#   ...
+
+# Widget definitions
+widgets:
+  # Date/Time widget - top left, spans 2 columns
+  - type: "clock"
+    label: "datetime"
+    row: 1
+    col: 1
+    col_span: 2
+    settings:
+      timezone: "America/Sao_Paulo"
+      format_24h: true
+      show_seconds: true
+      show_date: true
+
+  # Stats widget - top right
+  # - type: "stats"
+  #   label: "stats"
+  #   row: 1
+  #   col: 4
+  #   settings:
+  #     show_load: true
+  #     show_ping: true
+  #     show_fps: true
+  #     show_viewport: true
+
+  # Bookmarks widget - bottom, full width
+  - type: "bookmarks"
+    label: "links"
+    row: 3
+    col: 1
+    col_span: 4
+    settings:
+      columns: 4
+      groups:
+        - name: "work"
+          links:
+            - label: "gmail"
+              url: "https://mail.google.com"
+            - label: "calendar"
+              url: "https://calendar.google.com"
+            - label: "drive"
+              url: "https://drive.google.com"
+            - label: "docs"
+              url: "https://docs.google.com"
+        - name: "dev"
+          links:
+            - label: "github"
+              url: "https://github.com"
+            - label: "slack"
+              url: "https://slack.com"
+            - label: "linear"
+              url: "https://linear.app"
+            - label: "vercel"
+              url: "https://vercel.com"
+        - name: "ai"
+          links:
+            - label: "claude"
+              url: "https://claude.ai"
+            - label: "chatgpt"
+              url: "https://chat.openai.com"
+            - label: "perplexity"
+              url: "https://perplexity.ai"
+            - label: "aistudio"
+              url: "https://aistudio.google.com"
+        - name: "social"
+          links:
+            - label: "youtube"
+              url: "https://youtube.com"
+            - label: "reddit"
+              url: "https://reddit.com"
+            - label: "twitter"
+              url: "https://twitter.com"
+            - label: "feedly"
+              url: "https://feedly.com"
+
+  # Markdown widget - shows a file from config dir
+  - type: "markdown"
+    label: "notes"
+    row: 2
+    col: 1
+    col_span: 2
+    settings:
+      # Path relative to CONFIG_DIR
+      file: "notes/todo.md"
+      max_height: "300px"
+
+  # Another markdown for quick reference
+  - type: "markdown"
+    label: "cheatsheet"
+    row: 2
+    col: 3
+    col_span: 2
+    settings:
+      file: "notes/cheatsheet.md"
+      max_height: "300px"

@@ -1,0 +1,6 @@
+node_modules
+homebase
+_fresh
+.direnv
+.DS_Store
+.deno
